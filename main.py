@@ -2,9 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException, status, Path, Query, Body
 from database import SessionLocal, engine
 from sqlalchemy.orm import Session
 import schemas
-from models import Temp, EventEntity, EventUsers
-from schemas import User, UserCreate, ItemCreate, Item, TempCreate, EventEntityCreate
-import curd
+from models import EventEntity, EventUsers
+from schemas import EventEntityCreate
 import sys
 
 app = FastAPI()
