@@ -6,6 +6,7 @@ from models import Temp, EventEntity, EventUsers
 from schemas import User, UserCreate, ItemCreate, Item, TempCreate, EventEntityCreate
 import curd
 import sys
+
 app = FastAPI()
 
 def get_db():
@@ -86,9 +87,26 @@ async def remove_task(task_id: int, db: Session = Depends(get_db)):
     for i in task:
         db.delete(i)
         db.commit()
-    #delEventUsers = EventUsers(eventId=result.)
-    #db.delete(result)
-    #db.commit()
-    #result = db.query(EventUsers).filter(EventUsers.eventId == task_id).first()
-    #db.delete(EventUsers)
     return {"message":"delete successful"}
+
+def sortFunc(e):
+    return e['startTime']
+
+@app.get("/merge_event/{user_id}")
+async def merge_event(user_id: int, db : Session = Depends(get_db)):
+    eventUsers = db.query(EventUsers).filter(EventUsers.userId == user_id).all()
+    events = []
+    for i in eventUsers:
+        relatedEvent = db.query(EventEntity).filter(EventEntity.id == i.eventId).first()
+        events.append({"startTime":relatedEvent.startTime,"endTime":relatedEvent.endTime})
+    events.sort(key=sortFunc)
+    if len(events) <= 1:
+        return events
+    i = 0
+    while i < len(events) - 1:
+        if events[i]['endTime'] > events[i+1]['startTime']:
+            events[i]['endTime'] = events[i+1]['endTime']
+            del events[i+1]
+            continue
+        i = i + 1
+    return events
