@@ -109,4 +109,4 @@ async def merge_event(user_id: int, db : Session = Depends(get_db)):
             del events[i+1]
             continue
         i = i + 1
-    return events
+    return {"result":events}
