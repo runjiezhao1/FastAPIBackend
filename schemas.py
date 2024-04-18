@@ -49,7 +49,6 @@ class TempCreate(BaseModel):
     name: str
 
 class EventEntityCreate(BaseModel):
-    id: int
     title: str
     description: str
     status: str
@@ -57,6 +56,7 @@ class EventEntityCreate(BaseModel):
     updatedAt: str
     startTime: str
     endTime: str
+    userId: List[int] = []
 
 class EventUsersCreate(BaseModel):
     eventId: int
