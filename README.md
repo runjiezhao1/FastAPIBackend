@@ -9,12 +9,11 @@
 1. Postman and sqlite studio can better help you to understand what happens if you create, delete or select the task.
 
 ## Code Structure
-| -- .gitignore
-| -- README.md
-| -- curd.py
-| -- database.py
-| -- main.py
-| -- models.py
-| -- schemas.py
-| -- sql_app.db
-| -- test_main.py
+| -- .gitignore <br />
+| -- README.md <br />
+| -- database.py <br />
+| -- main.py <br />
+| -- models.py <br />
+| -- schemas.py <br />
+| -- sql_app.db <br />
+| -- test_main.py <br />
