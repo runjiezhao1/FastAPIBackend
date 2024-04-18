@@ -17,3 +17,31 @@
 | -- schemas.py <br />
 | -- sql_app.db <br />
 | -- test_main.py <br />
+
+## DDL for tables
+EventEntity table: <br />
+create table EventEntity( <br />
+    id integer primary key autoincrement, <br />
+    title varchar(255) not null, <br />
+    description varchar(255), <br />
+    status varchar(255) check(status in ('TODO','IN_PROGRESS','COMPLETED')), <br />
+    createdAt DATE, <br />
+    updatedAt DATE, <br />
+    startTime varchar(5) not null check  (startTime REGEXP '[0-9]{2}:[0-9]{2}'), <br />
+    endTime varchar(5) not null check  (endTime REGEXP '[0-9]{2}:[0-9]{2}') <br />
+) <br />
+
+UsersEntity table: <br />
+create table UsersEntity(<br />
+    id int NOT NULL,<br />
+    name varchar(255),<br />
+    primary key(id)<br />
+)<br />
+
+EventUsers table: <br />
+create table EventUsers( <br />
+    eventId int NOT NULL, <br />
+    userId int NOT NULL, <br />
+    FOREIGN KEY(eventId) references EventEntity(id), <br />
+    FOREIGN KEY(userId) references UsersEntity(id) <br />
+)
